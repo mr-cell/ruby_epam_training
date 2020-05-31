@@ -9,7 +9,8 @@ class LogReader
   end
 
   def read
-    throw FileNotFoundError.new unless File.file?(@file_path)
+    raise FileNotFoundError unless File.file?(@file_path)
+
     log_file = File.open(@file_path)
 
     log_file.readlines.collect do |line|

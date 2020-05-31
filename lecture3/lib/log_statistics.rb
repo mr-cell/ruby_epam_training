@@ -12,12 +12,14 @@ class LogStatistics
     @visit_statistics.values
                      .sort_by(&:visits)
                      .reverse
+                     .take(how_many)
   end
 
   def most_unique_visits(how_many)
     @visit_statistics.values
                      .sort_by(&:unique_visits)
                      .reverse
+                     .take(how_many)
   end
 
   private
@@ -25,9 +27,7 @@ class LogStatistics
   def load_visit_statistics(log_entries)
     @visit_statistics = {}
     log_entries.each do |entry|
-      unless @visit_statistics.key?(entry.page)
-        @visit_statistics[entry.page] = PageStatistics.new(entry.page)
-      end
+      @visit_statistics[entry.page] = PageStatistics.new(entry.page) unless @visit_statistics.key?(entry.page)
       @visit_statistics[entry.page].add_ip_address(entry.ip)
     end
   end

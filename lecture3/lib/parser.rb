@@ -6,11 +6,11 @@ require_relative 'log_reader'
 # Parser
 class Parser
   def initialize(file_path)
-    @file_path = file_path
+    @file_path = File.expand_path(file_path)
   end
 
   def load
-    log_entries = LogReader.new(file_path).read
+    log_entries = LogReader.new(@file_path).read
     @log_statistics = LogStatistics.new(log_entries)
   end
 

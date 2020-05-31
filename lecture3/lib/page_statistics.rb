@@ -18,4 +18,19 @@ class PageStatistics
     @visits += 1
     @ip_addresses << ip
   end
+
+  def ==(other)
+    page == other.page &&
+      @ip_addresses == other.ip_addresses &&
+      visits == other.visits &&
+      unique_visits == other.unique_visits
+  end
+
+  alias eql? ==
+
+  protected
+
+  def ip_addresses
+    @ip_addresses
+  end
 end

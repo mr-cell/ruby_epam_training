@@ -9,4 +9,10 @@ class LogEntry
     @page = page
     @ip = ip
   end
+
+  def ==(other)
+    page == other.page && ip == other.ip
+  end
+
+  alias eql? ==
 end
